@@ -1,17 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IMovable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    public float MoveSpeed { get; set; }
+    
+    private void Move()
     {
         
     }

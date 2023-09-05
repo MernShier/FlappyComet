@@ -7,11 +7,16 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    private TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreText;
     
     private void OnEnable()
     {
-        ScoreManager.Instance.OnScoreChange += UpdateScoreText();
+        ScoreManager.Instance.OnScoreChange += UpdateScoreText;
+    }
+    
+    private void OnDisable()
+    {
+        ScoreManager.Instance.OnScoreChange -= UpdateScoreText;
     }
 
     private void UpdateScoreText()

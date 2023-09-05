@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void ChangeScore(int value)
+    public void AddScore(int value)
     {
         Score += value;
         OnScoreChange.Invoke();
