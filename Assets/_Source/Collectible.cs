@@ -6,15 +6,21 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
-public class Collectible : MonoBehaviour, IMovable
+public class Collectible : MonoBehaviour, IMove, IHaveLifeTime
 {
     [SerializeField] private CollectibleType collectibleType;
     [SerializeField] private int value;
-    public float MoveSpeed { get; set; }
+    [field:SerializeField] public float MoveSpeed { get; set; }
+    [field:SerializeField] public float LifeTime { get; set; }
+    
+    private void Awake()
+    {
+        StartCoroutine(StartLifeTimer(LifeTime));
+    }
 
     private void Update()
     {
-        transform.position += Vector3.left * (MoveSpeed * Time.deltaTime);
+        Move();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -29,9 +35,20 @@ public class Collectible : MonoBehaviour, IMovable
             OnPickUp();
         }
     }
+    
+    public void Move()
+    {
+        transform.position += Vector3.left * (MoveSpeed * Time.deltaTime);
+    }
 
     private void OnPickUp()
     {
+        Destroy(gameObject);
+    }
+    
+    public IEnumerator StartLifeTimer(float lifeTime)
+    {
+        yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
     }
 }
