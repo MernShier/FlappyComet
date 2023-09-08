@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -15,6 +16,7 @@ namespace Spawner
 
         private void Awake()
         {
+            FillObjectPools();
             StartSpawner();
         }
 
@@ -22,19 +24,27 @@ namespace Spawner
         {
             foreach (var spawnable in spawnables)
             {
-                CreatePoolObjects(spawnable);
                 StartCoroutine(SpawnObject(spawnable));
             }
         }
 
-        private void CreatePoolObjects(Spawnable spawnable)
+        private void FillObjectPools()
         {
-            while (spawnable.ObjectPool.Count < spawnable.poolLength)
+            foreach (var spawnable in spawnables)
+            {
+                CreatePoolObjects(spawnable, spawnable.poolLength);
+            }
+        }
+
+        private void CreatePoolObjects(Spawnable spawnable, int number)
+        {
+            while (number > 0)
             {
                 var spawnedObject = _diContainer.InstantiatePrefab(spawnable.prefab, Vector3.zero, 
                     quaternion.identity, spawnable.poolParent);
                 spawnable.ObjectPool.Add(spawnedObject);
                 spawnedObject.SetActive(false);
+                number--;
             }
         }
 
