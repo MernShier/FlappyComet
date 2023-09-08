@@ -1,5 +1,4 @@
 using ScoreSystem;
-using UnityEngine;
 using Zenject;
 
 namespace Collectibles

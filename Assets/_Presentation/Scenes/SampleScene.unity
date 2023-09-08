@@ -5159,8 +5159,8 @@ MonoBehaviour:
   - prefab: {fileID: 1452220580507139262, guid: 24f18e3f054c8fa428c5e01f74fb7878, type: 3}
     spawnPoints:
     - {fileID: 2126542588}
-    minSpawnTime: 1.5
-    maxSpawnTime: 3
+    minSpawnTime: 2.5
+    maxSpawnTime: 5
   - prefab: {fileID: 4607754670780211093, guid: bebcc51d9131f9942ace7af81caf2ad1, type: 3}
     spawnPoints:
     - {fileID: 1476434660}
@@ -5170,8 +5170,8 @@ MonoBehaviour:
     - {fileID: 567977242}
     - {fileID: 1304086418}
     - {fileID: 126801599}
-    minSpawnTime: 2.35
-    maxSpawnTime: 4.48
+    minSpawnTime: 2
+    maxSpawnTime: 4.15
 --- !u!1 &299122330
 GameObject:
   m_ObjectHideFlags: 0
