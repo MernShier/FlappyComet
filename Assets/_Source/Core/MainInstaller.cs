@@ -1,6 +1,6 @@
 using PlayerSystem;
 using ScoreSystem;
-using Spawner;
+using SpawnerSystem;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +15,7 @@ namespace Core
             Container.Bind<Player>().FromInstance(player).AsSingle().NonLazy();
             
             Container.Bind<Score>().AsSingle().NonLazy();
+            Container.Bind<SpawnablePool>().AsSingle().NonLazy();
         }
     }
 }

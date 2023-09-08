@@ -1,23 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Spawner
+namespace SpawnerSystem
 {
     public class Spawner : MonoBehaviour
     {
         [SerializeField] private List<Spawnable> spawnables;
-        [Inject] private DiContainer _diContainer;
+        [Inject] private SpawnablePool _spawnablePool;
 
         private void Awake()
         {
             FillObjectPools();
             StartSpawner();
+        }
+        
+        private void FillObjectPools()
+        {
+            foreach (var spawnable in spawnables)
+            {
+                _spawnablePool.InstantiatePoolObjects(spawnable, spawnable.poolLength);
+            }
         }
 
         private void StartSpawner()
@@ -28,33 +33,13 @@ namespace Spawner
             }
         }
 
-        private void FillObjectPools()
-        {
-            foreach (var spawnable in spawnables)
-            {
-                CreatePoolObjects(spawnable, spawnable.poolLength);
-            }
-        }
-
-        private void CreatePoolObjects(Spawnable spawnable, int number)
-        {
-            while (number > 0)
-            {
-                var spawnedObject = _diContainer.InstantiatePrefab(spawnable.prefab, Vector3.zero, 
-                    quaternion.identity, spawnable.poolParent);
-                spawnable.ObjectPool.Add(spawnedObject);
-                spawnedObject.SetActive(false);
-                number--;
-            }
-        }
-
         private IEnumerator SpawnObject(Spawnable spawnable)
         {
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(spawnable.minSpawnTime, spawnable.maxSpawnTime));
 
-                var objectToSpawn = spawnable.ObjectPool.FirstOrDefault(obj => !obj.activeSelf);
+                var objectToSpawn = _spawnablePool.GetPoolObject(spawnable);
                 if (objectToSpawn == null) continue;
                 
                 objectToSpawn.transform.position = spawnable.spawnPoints[Random.Range(0, spawnable.spawnPoints.Count)].position;
