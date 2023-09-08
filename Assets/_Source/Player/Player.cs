@@ -4,24 +4,22 @@ using UnityEngine.SceneManagement;
 
 namespace Player
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private float playerAcceleration;
-        private Rigidbody2D _rb;
         [SerializeField] private LayerMask enemyLayer;
         [SerializeField] private LayerMask borderLayer;
+        private Rigidbody2D _rb;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
+        public void MoveUp()
         {
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))
-            {
-                _rb.AddForce(Vector2.up * (playerAcceleration * Time.deltaTime));
-            }
+            _rb.AddForce(Vector2.up * (playerAcceleration * Time.deltaTime));
         }
 
         private void OnTriggerEnter2D(Collider2D col)
@@ -35,7 +33,7 @@ namespace Player
 
         private void Death()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Game.ReloadScene();
         }
     }
 }
