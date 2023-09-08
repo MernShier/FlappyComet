@@ -8,7 +8,7 @@ namespace Collectibles
         [Inject] private Score _score;
         protected override void OnPickUp()
         {
-            _score.AddScore(1);
+            _score.AddScore(value);
             base.OnPickUp();
         }
     }

@@ -8,12 +8,12 @@ namespace Enemies
         [SerializeField] private float maxJumpForce;
         [SerializeField] private float minGravity;
         [SerializeField] private float maxGravity;
-    
-        protected override void Awake()
+
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
+            
             Rb.gravityScale = Random.Range(minGravity, maxGravity);
-        
             Jump();
         }
 

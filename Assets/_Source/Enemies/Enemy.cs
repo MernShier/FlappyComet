@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Interfaces;
 using UnityEngine;
@@ -14,6 +15,10 @@ namespace Enemies
         protected virtual void Awake()
         {
             Rb = GetComponent<Rigidbody2D>();
+        }
+
+        protected virtual void OnEnable()
+        {
             StartCoroutine(StartLifeTimer(LifeTime));
         }
 
@@ -25,7 +30,7 @@ namespace Enemies
 
         private void Death()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

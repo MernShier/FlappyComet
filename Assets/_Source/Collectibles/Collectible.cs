@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Extensions;
 using Interfaces;
@@ -8,12 +9,12 @@ namespace Collectibles
 {
     public abstract class Collectible : MonoBehaviour, IMove, IHaveLifeTime
     {
-        [SerializeField] private int value;
+        [SerializeField] protected int value;
         [SerializeField] private LayerMask playerLayer;
         [field:SerializeField] public float MoveSpeed { get; set; }
         [field:SerializeField] public float LifeTime { get; set; }
 
-        private void Awake()
+        protected virtual void OnEnable()
         {
             StartCoroutine(StartLifeTimer(LifeTime));
         }
@@ -38,13 +39,13 @@ namespace Collectibles
 
         protected virtual void OnPickUp()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     
         public IEnumerator StartLifeTimer(float lifeTime)
         {
             yield return new WaitForSeconds(lifeTime);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
