@@ -1,6 +1,9 @@
-public interface IMove
+namespace Interfaces
 {
-    public float MoveSpeed { get; set; }
+    public interface IMove
+    {
+        public float MoveSpeed { get; set; }
 
-    public void Move();
+        public void Move();
+    }
 }

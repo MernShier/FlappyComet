@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Spawner
@@ -9,6 +10,7 @@ namespace Spawner
     public class Spawner : MonoBehaviour
     {
         [SerializeField] private List<Spawnable> spawnables;
+        [Inject] private DiContainer _diContainer;
 
         private void Awake()
         {
@@ -29,7 +31,7 @@ namespace Spawner
             {
                 yield return new WaitForSeconds(Random.Range(spawnable.minSpawnTime, spawnable.maxSpawnTime));
                 var spawnPoint = spawnable.spawnPoints[Random.Range(0, spawnable.spawnPoints.Length)];
-                Instantiate((Object)spawnable.prefab, spawnPoint.position, quaternion.identity, spawnPoint);
+                _diContainer.InstantiatePrefab(spawnable.prefab, spawnPoint.position, quaternion.identity, spawnPoint);
             }
         }
     }

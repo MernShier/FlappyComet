@@ -1,8 +1,8 @@
+using Core;
 using Extensions;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace Player
+namespace PlayerSystem
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
@@ -16,12 +16,7 @@ namespace Player
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-
-        public void MoveUp()
-        {
-            _rb.AddForce(Vector2.up * (playerAcceleration * Time.deltaTime));
-        }
-
+        
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (enemyLayer.Contains(col.gameObject.layer) ||
@@ -31,6 +26,11 @@ namespace Player
             }
         }
 
+        public void MoveUp()
+        {
+            _rb.AddForce(Vector2.up * (playerAcceleration * Time.deltaTime));
+        }
+        
         private void Death()
         {
             Game.ReloadScene();

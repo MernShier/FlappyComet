@@ -1,7 +1,10 @@
 using System.Collections;
 
-public interface IHaveLifeTime 
+namespace Interfaces
 {
-    public float LifeTime { get; set; }
-    public IEnumerator StartLifeTimer(float lifeTime);
+    public interface IHaveLifeTime 
+    {
+        public float LifeTime { get; set; }
+        public IEnumerator StartLifeTimer(float lifeTime);
+    }
 }

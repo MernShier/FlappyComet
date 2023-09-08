@@ -1,30 +1,31 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using Interfaces;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public abstract class Enemy : MonoBehaviour, IHaveLifeTime
+namespace Enemies
 {
-    [field:SerializeField] public float LifeTime { get; set; }
-
-    protected Rigidbody2D Rb;
-
-    protected virtual void Awake()
+    [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+    public abstract class Enemy : MonoBehaviour, IHaveLifeTime
     {
-        Rb = GetComponent<Rigidbody2D>();
-        StartCoroutine(StartLifeTimer(LifeTime));
-    }
+        [field:SerializeField] public float LifeTime { get; set; }
 
-    public IEnumerator StartLifeTimer(float lifeTime)
-    {
-        yield return new WaitForSeconds(lifeTime);
-        Death();
-    }
+        protected Rigidbody2D Rb;
 
-    private void Death()
-    {
-        Destroy(gameObject);
+        protected virtual void Awake()
+        {
+            Rb = GetComponent<Rigidbody2D>();
+            StartCoroutine(StartLifeTimer(LifeTime));
+        }
+
+        public IEnumerator StartLifeTimer(float lifeTime)
+        {
+            yield return new WaitForSeconds(lifeTime);
+            Death();
+        }
+
+        private void Death()
+        {
+            Destroy(gameObject);
+        }
     }
 }

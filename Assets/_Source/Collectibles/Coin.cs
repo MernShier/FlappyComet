@@ -1,10 +1,15 @@
+using ScoreSystem;
+using UnityEngine;
+using Zenject;
+
 namespace Collectibles
 {
     public class Coin : Collectible
     {
+        [Inject] private Score _score;
         protected override void OnPickUp()
         {
-            Score.Instance.AddScore(1);
+            _score.AddScore(1);
             base.OnPickUp();
         }
     }
