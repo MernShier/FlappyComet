@@ -12,6 +12,8 @@ namespace Core
         [SerializeField] private Player player;
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterEntryPoint<Bootstrapper>();
+            
             builder.RegisterInstance<Player>(player);
             
             builder.Register<Score>(Lifetime.Singleton);

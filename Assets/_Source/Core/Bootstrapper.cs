@@ -1,10 +1,11 @@
 using UnityEngine;
+using VContainer.Unity;
 
 namespace Core
 {
-    public class Bootstrapper : MonoBehaviour
+    public class Bootstrapper : IStartable
     {
-        private void Awake()
+        public void Start()
         {
             Game.Pause(true);
         }

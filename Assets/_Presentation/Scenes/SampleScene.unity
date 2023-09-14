@@ -5636,7 +5636,7 @@ GameObject:
   - component: {fileID: 986191859}
   - component: {fileID: 986191862}
   - component: {fileID: 986191861}
-  - component: {fileID: 986191863}
+  - component: {fileID: 986191864}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -5686,7 +5686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17edb5b28962d2e4ea3e9449022de000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &986191863
+--- !u!114 &986191864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5695,9 +5695,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 986191857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 291204ec6db945baa20ed3c8b400af68, type: 3}
+  m_Script: {fileID: 11500000, guid: b80c2b3eba059a141b2e5611276d434e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects:
+  - {fileID: 216473665}
+  - {fileID: 986191857}
+  player: {fileID: 16257746}
 --- !u!1 &1051434630
 GameObject:
   m_ObjectHideFlags: 0
@@ -6382,7 +6389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1757873595
 Transform:
   m_ObjectHideFlags: 0
