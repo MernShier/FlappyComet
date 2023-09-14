@@ -2,7 +2,7 @@ using Core;
 using ScoreSystem;
 using TMPro;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 namespace UI
 {

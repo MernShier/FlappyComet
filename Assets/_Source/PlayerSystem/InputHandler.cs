@@ -1,6 +1,6 @@
 using Core;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 namespace PlayerSystem
 {

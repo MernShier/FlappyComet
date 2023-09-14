@@ -1,5 +1,5 @@
 using ScoreSystem;
-using Zenject;
+using VContainer;
 
 namespace Collectibles
 {
