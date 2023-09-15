@@ -4,18 +4,14 @@ using UnityEngine;
 
 namespace PlayerSystem
 {
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(ParticleSystem))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private float playerAcceleration;
         [SerializeField] private LayerMask enemyLayer;
         [SerializeField] private LayerMask borderLayer;
-        private Rigidbody2D _rb;
-
-        private void Awake()
-        {
-            _rb = GetComponent<Rigidbody2D>();
-        }
+        [field:SerializeField] public Rigidbody2D Rigidbody { get; private set; }
+        [field:SerializeField] public ParticleSystem ParticleSystem { get; private set; }
         
         private void OnTriggerEnter2D(Collider2D col)
         {
@@ -28,7 +24,7 @@ namespace PlayerSystem
 
         public void MoveUp()
         {
-            _rb.AddForce(Vector2.up * (playerAcceleration * Time.deltaTime));
+            Rigidbody.AddForce(Vector2.up * (playerAcceleration * Time.deltaTime));
         }
         
         private void Death()

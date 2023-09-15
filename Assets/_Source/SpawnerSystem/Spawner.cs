@@ -14,7 +14,6 @@ namespace SpawnerSystem
         private void Awake()
         {
             FillObjectPools();
-            StartSpawner();
         }
         
         private void FillObjectPools()
@@ -25,12 +24,17 @@ namespace SpawnerSystem
             }
         }
 
-        private void StartSpawner()
+        public void StartSpawner()
         {
             foreach (var spawnable in spawnables)
             {
                 StartCoroutine(SpawnObject(spawnable));
             }
+        }
+
+        public void StopSpawner()
+        {
+            StopAllCoroutines();
         }
 
         private IEnumerator SpawnObject(Spawnable spawnable)

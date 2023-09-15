@@ -1,4 +1,7 @@
+using System;
 using Core;
+using Core.StateMachine;
+using Core.StateMachine.States;
 using UnityEngine;
 using VContainer;
 
@@ -7,6 +10,9 @@ namespace PlayerSystem
     public class InputHandler : MonoBehaviour
     {
         [Inject] private Player _player;
+        [Inject] private GameStateMachine _gameStateMachine;
+
+        private bool _gameStarted;
     
         void Update()
         {
@@ -14,8 +20,9 @@ namespace PlayerSystem
             {
                 _player.MoveUp();
             
-                if (Time.timeScale == 1) return;
-                Game.Pause(false);
+                if (_gameStarted) return;
+                _gameStateMachine.SwitchState(typeof(PlayState));
+                _gameStarted = true;
             }
         }
     }

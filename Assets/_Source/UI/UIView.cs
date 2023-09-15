@@ -1,4 +1,5 @@
 using Core;
+using Core.StateMachine.States;
 using ScoreSystem;
 using TMPro;
 using UnityEngine;
@@ -11,27 +12,24 @@ namespace UI
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text pauseText;
         [Inject] private Score _score;
-    
+        [Inject] private LevelStartState _levelStartState;
+
         private void OnEnable()
         {
-            Score.OnScoreChange += UpdateScoreText;
-            Game.OnPauseChange += UpdatePauseObject;
+            _score.OnScoreChange += UpdateScoreText;
+            _levelStartState.OnLevelStartPauseChange += UpdatePauseObject;
         }
     
         private void OnDisable()
         {
-            Score.OnScoreChange -= UpdateScoreText;
-            Game.OnPauseChange -= UpdatePauseObject;
+            _score.OnScoreChange -= UpdateScoreText;
+            _levelStartState.OnLevelStartPauseChange -= UpdatePauseObject;
         }
 
-        private void UpdateScoreText()
-        {
+        private void UpdateScoreText() =>
             scoreText.text = $"{_score.Value}";
-        }
-    
-        private void UpdatePauseObject(bool value)
-        {
+
+        private void UpdatePauseObject(bool value) =>
             pauseText.gameObject.SetActive(value);
-        }
     }
 }
