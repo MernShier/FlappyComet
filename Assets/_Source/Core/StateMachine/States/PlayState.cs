@@ -1,11 +1,15 @@
 using SpawnerSystem;
-using VContainer;
 
 namespace Core.StateMachine.States
 {
     public class PlayState : IState
     {
-        [Inject] private Spawner _spawner;
+        private readonly Spawner _spawner;
+
+        private PlayState(Spawner spawner)
+        {
+            _spawner = spawner;
+        }
         
         public void Enter()
         {

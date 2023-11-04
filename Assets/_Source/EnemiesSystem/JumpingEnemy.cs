@@ -1,8 +1,9 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace Enemies
+namespace EnemiesSystem
 {
-    public class NormalEnemy : Enemy
+    public class JumpingEnemy : Enemy
     {
         [SerializeField] private float minJumpForce;
         [SerializeField] private float maxJumpForce;
@@ -13,13 +14,13 @@ namespace Enemies
         {
             base.OnEnable();
             
-            Rb.gravityScale = Random.Range(minGravity, maxGravity);
+            Rigidbody2D.gravityScale = Random.Range(minGravity, maxGravity);
             Jump();
         }
 
         private void Jump()
         {
-            Rb.AddForce(Vector2.left * Random.Range(minJumpForce, maxJumpForce));
+            Rigidbody2D.AddForce(Vector2.left * Random.Range(minJumpForce, maxJumpForce));
         }
     }
 }

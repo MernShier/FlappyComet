@@ -1,27 +1,28 @@
 using System;
-using PlayerSystem;
-using UnityEngine;
-using VContainer;
+using BallSystem;
 
 namespace Core.StateMachine.States
 {
     public class LevelStartState : IState
     {
-        [Inject] private Player _player;
-        public event Action<bool> OnLevelStartPauseChange;
+        public event Action<bool> OnLevelStartStatePauseChange;
+        private readonly Ball _ball;
+        
+        private LevelStartState(Ball ball)
+        {
+            _ball = ball;
+        }
 
         public void Enter()
         {
-            _player.Rigidbody.bodyType = RigidbodyType2D.Static;
-            _player.ParticleSystem.Pause();
-            OnLevelStartPauseChange?.Invoke(true);
+            _ball.Freeze(true);
+            OnLevelStartStatePauseChange?.Invoke(true);
         }
 
         public void Exit()
         {
-            _player.Rigidbody.bodyType = RigidbodyType2D.Dynamic;
-            _player.ParticleSystem.Play();
-            OnLevelStartPauseChange?.Invoke(false);
+            _ball.Freeze(false);
+            OnLevelStartStatePauseChange?.Invoke(false);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SpawnerSystem.Data;
 using UnityEngine;
 using VContainer;
 using Random = UnityEngine.Random;
@@ -9,8 +10,14 @@ namespace SpawnerSystem
     public class Spawner : MonoBehaviour
     {
         [SerializeField] private List<Spawnable> spawnables;
-        [Inject] private SpawnablePool _spawnablePool;
+        private IObjectResolver _iObjectResolver;
 
+        [Inject]
+        private void Construct(IObjectResolver iObjectResolver)
+        {
+            _iObjectResolver = iObjectResolver;
+        }
+        
         private void Awake()
         {
             FillObjectPools();
@@ -20,7 +27,7 @@ namespace SpawnerSystem
         {
             foreach (var spawnable in spawnables)
             {
-                _spawnablePool.InstantiatePoolObjects(spawnable, spawnable.poolLength);
+                spawnable.InstantiatePoolObjects(_iObjectResolver);
             }
         }
 
@@ -34,19 +41,22 @@ namespace SpawnerSystem
 
         public void StopSpawner()
         {
-            StopAllCoroutines();
+            foreach (var spawnable in spawnables)
+            {
+                StopCoroutine(SpawnObject(spawnable));
+            }
         }
 
         private IEnumerator SpawnObject(Spawnable spawnable)
         {
             while (true)
             {
-                yield return new WaitForSeconds(Random.Range(spawnable.minSpawnTime, spawnable.maxSpawnTime));
+                yield return new WaitForSeconds(Random.Range(spawnable.MinSpawnTime, spawnable.MaxSpawnTime));
 
-                var objectToSpawn = _spawnablePool.GetPoolObject(spawnable);
+                var objectToSpawn = spawnable.GetPoolObject();
                 if (objectToSpawn == null) continue;
                 
-                objectToSpawn.transform.position = spawnable.spawnPoints[Random.Range(0, spawnable.spawnPoints.Count)].position;
+                objectToSpawn.transform.position = spawnable.SpawnPoints[Random.Range(0, spawnable.SpawnPoints.Count)].position;
                 objectToSpawn.SetActive(true);
             }
         }

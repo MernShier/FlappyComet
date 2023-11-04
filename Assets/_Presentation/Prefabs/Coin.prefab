@@ -114,9 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e170ea373c7e6d64ca639fc8b3d73216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 10
   value: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
   <MoveSpeed>k__BackingField: 7.5
-  <LifeTime>k__BackingField: 15

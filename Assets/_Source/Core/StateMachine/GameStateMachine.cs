@@ -13,8 +13,6 @@ namespace Core.StateMachine
         {
             _states.Add(typeof(PlayState), playState);
             _states.Add(typeof(LevelStartState), levelStartState);
-
-            SwitchState(typeof(LevelStartState));
         }
 
         public void SwitchState(Type newState)

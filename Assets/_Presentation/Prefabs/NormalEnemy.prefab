@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924ad8d0b166e0441a1ac3adea15833c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <LifeTime>k__BackingField: 15
+  lifeTime: 10
   minJumpForce: 775
   maxJumpForce: 1150
   minGravity: 0.35
